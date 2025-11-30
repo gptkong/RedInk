@@ -103,11 +103,14 @@ class Jm2ApiGenerator(ImageGeneratorBase):
 
         payload = {
             "model": model,
-            "prompt": prompt,
-            "n": 1,
-            "ratio": aspect_ratio,
-            "resolution": resolution
+            "prompt": prompt
         }
+
+        # 可选参数，仅在非默认值时添加
+        if aspect_ratio and aspect_ratio != "1:1":
+            payload["ratio"] = aspect_ratio
+        if resolution and resolution != "2k":
+            payload["resolution"] = resolution
 
         api_url = f"{self.base_url}/v1/images/generations"
         logger.debug(f"  发送请求到: {api_url}")
