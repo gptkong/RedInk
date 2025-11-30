@@ -113,6 +113,7 @@ class Jm2ApiGenerator(ImageGeneratorBase):
             payload["resolution"] = resolution
 
         api_url = f"{self.base_url}/v1/images/generations"
+        logger.debug(f"  请求体: {payload}")
         logger.debug(f"  发送请求到: {api_url}")
         response = requests.post(api_url, headers=headers, json=payload, timeout=300)
 
