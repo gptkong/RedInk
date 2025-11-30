@@ -101,9 +101,12 @@ class Jm2ApiGenerator(ImageGeneratorBase):
             "Content-Type": "application/json"
         }
 
+        # 替换敏感词
+        filtered_prompt = prompt.replace("小红书", "INS")
+        
         payload = {
             "model": model,
-            "prompt": prompt
+            "prompt": filtered_prompt
         }
 
         # ratio 和 resolution 必须同时出现，或者都不出现
