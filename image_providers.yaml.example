@@ -34,5 +34,6 @@ providers:
     api_key: sk-xxxxxxxxxxxxxxxxxxxx
     base_url: https://your-api-endpoint.com
     model: your-model
-    default_size: 1024x1024
+    default_ratio: "3:4"  # 支持: 1:1, 4:3, 3:4, 16:9, 9:16, 3:2, 2:3, 21:9
+    default_resolution: "2k"  # 支持: 1k, 2k, 4k
     high_concurrency: false
