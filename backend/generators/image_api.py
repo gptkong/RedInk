@@ -193,7 +193,6 @@ class ImageApiGenerator(ImageGeneratorBase):
         if "data" in result and len(result["data"]) > 0:
             item = result["data"][0]
 
-            # 优先处理 b64_json 格式
             if "b64_json" in item:
                 b64_data_uri = item["b64_json"]
                 if b64_data_uri.startswith('data:'):
@@ -201,23 +200,17 @@ class ImageApiGenerator(ImageGeneratorBase):
                 else:
                     b64_string = b64_data_uri
                 image_data = base64.b64decode(b64_string)
-                logger.info(f"✅ Image API 图片生成成功 (b64_json): {len(image_data)} bytes")
+                logger.info(f"✅ Image API 图片生成成功: {len(image_data)} bytes")
                 return image_data
-
-            # 处理 URL 格式
-            if "url" in item:
-                image_url = item["url"]
-                logger.info(f"从 URL 下载图片: {image_url[:100]}...")
-                return self._download_image(image_url)
 
         logger.error(f"无法从响应中提取图片数据: {str(result)[:200]}")
         raise Exception(
-            f"图片数据提取失败：未找到 b64_json 或 url 数据。\n"
+            f"图片数据提取失败：未找到 b64_json 数据。\n"
             f"API响应片段: {str(result)[:500]}\n"
             "可能原因：\n"
             "1. API返回格式与预期不符\n"
             "2. response_format 参数未生效\n"
-            "3. 该模型不支持 b64_json 或 url 格式\n"
+            "3. 该模型不支持 b64_json 格式\n"
             "建议：检查API文档确认返回格式要求"
         )
 

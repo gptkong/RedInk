@@ -20,10 +20,19 @@ providers:
     model: gemini-3-pro-image-preview
     high_concurrency: true  # 付费账号可以启用高并发
 
-  # OpenAI 兼容接口（如支持图片生成的第三方 API）
-  openai_image:
+  # OpenAI 兼容接口（如支持图片生成的第三方 API，返回 b64_json）
+  custom_image:
     type: image_api
     api_key: sk-xxxxxxxxxxxxxxxxxxxx
     base_url: https://your-api-endpoint.com
-    model: dall-e-3
+    model: custom-model
+    high_concurrency: false
+
+  # Jm2Api（返回 URL 格式）
+  jm2api:
+    type: jm2api
+    api_key: sk-xxxxxxxxxxxxxxxxxxxx
+    base_url: https://your-api-endpoint.com
+    model: your-model
+    default_size: 1024x1024
     high_concurrency: false
