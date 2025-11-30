@@ -106,10 +106,10 @@ class Jm2ApiGenerator(ImageGeneratorBase):
             "prompt": prompt
         }
 
-        # 可选参数，仅在非默认值时添加
-        if aspect_ratio and aspect_ratio != "1:1":
+        # ratio 和 resolution 必须同时出现，或者都不出现
+        # 只有当不是默认值 (1:1, 2k) 时才添加这两个参数
+        if aspect_ratio != "1:1" or resolution != "2k":
             payload["ratio"] = aspect_ratio
-        if resolution and resolution != "2k":
             payload["resolution"] = resolution
 
         api_url = f"{self.base_url}/v1/images/generations"
