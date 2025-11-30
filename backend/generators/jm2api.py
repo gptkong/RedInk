@@ -115,7 +115,13 @@ class Jm2ApiGenerator(ImageGeneratorBase):
         api_url = f"{self.base_url}/v1/images/generations"
         logger.debug(f"  请求体: {payload}")
         logger.debug(f"  发送请求到: {api_url}")
+        
+        import json
+        logger.debug(f"  JSON 序列化后: {json.dumps(payload, ensure_ascii=False)}")
+        
         response = requests.post(api_url, headers=headers, json=payload, timeout=300)
+        logger.debug(f"  响应状态码: {response.status_code}")
+        logger.debug(f"  响应内容: {response.text[:500]}")
 
         if response.status_code != 200:
             error_detail = response.text[:500]
